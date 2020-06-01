@@ -2,7 +2,6 @@ package com.brycen.hrm.model;
 
 import java.sql.Date;
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -43,6 +42,10 @@ public class Employee {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	private Role role;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "status_id")
+	private Status status;
 
 	public Long getId() {
 		return id;
