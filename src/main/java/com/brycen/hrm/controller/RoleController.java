@@ -2,17 +2,21 @@ package com.brycen.hrm.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brycen.hrm.model.Role;
 import com.brycen.hrm.service.RoleService;
+
 
 @RestController
 @CrossOrigin
@@ -28,10 +32,23 @@ public class RoleController {
 		return this.roleService.getAll();
 	}
 	
+	// Get by id
+	@GetMapping("/role/{id}")
+	public ResponseEntity<Role> getById(@PathVariable("id") long id){
+		return this.roleService.getById(id);
+	}
+	
+	
 	// Insert for database
 	@PostMapping("/create")
 	public ResponseEntity<Role> create(@RequestBody Role role) {
-		System.out.println("run role");
 		return this.roleService.create(role);
 	}
+	
+	// Update
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Role> update(@PathVariable("id") long id, @RequestBody Role role) {
+		return this.roleService.update(id, role);
+	}
+	
 }
