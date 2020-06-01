@@ -1,0 +1,37 @@
+package com.brycen.hrm.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.brycen.hrm.model.Role;
+import com.brycen.hrm.service.RoleService;
+
+@RestController
+@CrossOrigin
+@RequestMapping("api")
+public class RoleController {
+	
+	@Autowired
+	RoleService roleService;
+	
+	// Get all data
+	@GetMapping("/role")
+	public ResponseEntity<List<Role>> getAll() {
+		return this.roleService.getAll();
+	}
+	
+	// Insert for database
+	@PostMapping("/create")
+	public ResponseEntity<Role> create(@RequestBody Role role) {
+		System.out.println("run role");
+		return this.roleService.create(role);
+	}
+}

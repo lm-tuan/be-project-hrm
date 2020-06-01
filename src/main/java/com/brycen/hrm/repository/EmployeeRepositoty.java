@@ -1,5 +1,9 @@
 package com.brycen.hrm.repository;
 
-public class EmployeeRepositoty {
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.brycen.hrm.model.Employee;
 
+
+public interface EmployeeRepositoty extends JpaRepository<Employee, Long> {
+	
 }
