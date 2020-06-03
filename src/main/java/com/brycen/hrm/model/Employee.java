@@ -46,6 +46,9 @@ public class Employee {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status_id")
 	private Status status;
+	
+	@Column(name = "delete_flag")
+	private int delete_flag ;
 
 	public Long getId() {
 		return id;
@@ -133,6 +136,14 @@ public class Employee {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public int isDelete_flag() {
+		return delete_flag;
+	}
+
+	public void setDelete_flag(int delete_flag) {
+		this.delete_flag = delete_flag;
 	}
 	
 
