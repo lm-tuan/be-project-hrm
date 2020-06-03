@@ -1,8 +1,6 @@
 package com.brycen.hrm.model;
 
 import java.util.List;
-
-
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,43 +19,50 @@ public class Role {
 	@Column(name = "delete_flag")
 	private int delete_flag ;
 	
+	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
-	private List<Employee> employees;
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	private UserRole user_role;
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public int isDelete_flag() {
+
+	public int getDelete_flag() {
 		return delete_flag;
 	}
+
 
 	public void setDelete_flag(int delete_flag) {
 		this.delete_flag = delete_flag;
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
+
+	public UserRole getUser_roles() {
+		return user_role;
 	}
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
+
+	public void setUser_roles(UserRole user_role) {
+		this.user_role = user_role;
 	}
 
-	
-	
-	
 }

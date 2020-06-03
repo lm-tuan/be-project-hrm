@@ -2,6 +2,7 @@ package com.brycen.hrm.service;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,6 @@ public class RoleService {
 	public ResponseEntity<List<Role>> getAll() {
 		try {
 			List<Role> roles = new ArrayList<Role>();
-//			roles = roleRepository.findAll();
 			roles = roleRepository.findAllByFlag();
 			return new ResponseEntity<>(roles, HttpStatus.OK);
 

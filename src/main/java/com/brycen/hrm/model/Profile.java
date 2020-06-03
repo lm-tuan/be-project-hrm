@@ -1,22 +1,20 @@
 package com.brycen.hrm.model;
 
 import java.sql.Date;
+
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "employee")
-public class Employee {
+@Table(name = "profile")
+public class Profile {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
-	@Column(name = "username")
-	private String username;
-	
-	@Column(name = "password")
-	private String password;
 	
 	@Column(name = "full_name")
 	private String full_name;
@@ -39,16 +37,11 @@ public class Employee {
 	@Column(name = "position")
 	private String position;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id")
-	private Role role;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "status_id")
-	private Status status;
-	
 	@Column(name = "delete_flag")
 	private int delete_flag ;
+	
+//	@OneToOne(mappedBy = "profile")
+//    private User user;
 
 	public Long getId() {
 		return id;
@@ -56,22 +49,6 @@ public class Employee {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getFull_name() {
@@ -130,22 +107,24 @@ public class Employee {
 		this.position = position;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
-	public int isDelete_flag() {
+	public int getDelete_flag() {
 		return delete_flag;
 	}
 
 	public void setDelete_flag(int delete_flag) {
 		this.delete_flag = delete_flag;
 	}
+
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
+
 	
 
+	
 	
 }
