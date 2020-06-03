@@ -22,7 +22,8 @@ public class RoleService {
 	public ResponseEntity<List<Role>> getAll() {
 		try {
 			List<Role> roles = new ArrayList<Role>();
-			roles = roleRepository.findAll();
+//			roles = roleRepository.findAll();
+			roles = roleRepository.findAllByFlag();
 			return new ResponseEntity<>(roles, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -33,7 +34,7 @@ public class RoleService {
 	// Get by Id
 	public ResponseEntity<Role> getById(Long id) {
 		try {
-			 Optional<Role> roleData = roleRepository.findById(id);
+			 Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
 			if(roleData.isPresent()) {
 				return new ResponseEntity<>(roleData.get(), HttpStatus.OK);
 			}else {
@@ -48,6 +49,7 @@ public class RoleService {
 	// Insert data
 	public ResponseEntity<Role> create(Role role) {
 		try {
+			role.setDelete_flag(0);
 			Role _role = roleRepository.save(role);
 			
 			 return new ResponseEntity<>(_role, HttpStatus.CREATED);
@@ -61,11 +63,26 @@ public class RoleService {
 	
 	public ResponseEntity<Role> update(Long id, Role role) {
 		try {
-			Optional<Role> roleData = roleRepository.findById(id);
+			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
 			if(roleData.isPresent()) {
 				Role _role = roleData.get();
 				_role.setName(role.getName());
 				return new ResponseEntity<>(roleRepository.save(_role), HttpStatus.OK);
+			}else {
+				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	public ResponseEntity<String> delete(Long id) {
+		try {
+			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
+			if(roleData.isPresent()) {
+				Role _role = roleData.get();
+				_role.setDelete_flag(1);
+				return new ResponseEntity<>("Delete user action success ", HttpStatus.OK);
 			}else {
 				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}			

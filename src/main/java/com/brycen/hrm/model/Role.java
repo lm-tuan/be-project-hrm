@@ -18,6 +18,9 @@ public class Role {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "delete_flag")
+	private int delete_flag ;
+	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
 	private List<Employee> employees;
@@ -38,6 +41,14 @@ public class Role {
 		this.name = name;
 	}
 
+	public int isDelete_flag() {
+		return delete_flag;
+	}
+
+	public void setDelete_flag(int delete_flag) {
+		this.delete_flag = delete_flag;
+	}
+
 	public List<Employee> getEmployees() {
 		return employees;
 	}
@@ -45,5 +56,8 @@ public class Role {
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
+
+	
+	
 	
 }

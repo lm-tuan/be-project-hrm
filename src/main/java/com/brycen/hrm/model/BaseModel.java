@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -21,12 +23,14 @@ public class BaseModel {
 	@Column(name = "delete_flag")
 	private boolean delete_flag ;
 	
+	@CreationTimestamp
 	@Column(name = "create_date")
 	@CreatedDate
 	private Date create_date ;
 	
+	@UpdateTimestamp
 	@Column(name = "update_date")
-	@LastModifiedDate
+	// @LastModifiedDate
 	private Date update_date ;
 	
 	@Column(name = "create_by")
@@ -34,7 +38,7 @@ public class BaseModel {
 	private String create_by ;
 	
 	@Column(name = "update_by")
-	@LastModifiedBy
+	//@LastModifiedBy
 	private String update_by ;
 
 	public Long getId() {
