@@ -47,48 +47,48 @@ public class RoleService {
 	}
 	
 	// Insert data
-	public ResponseEntity<Role> create(Role role) {
-		try {
-			role.setDelete_flag(0);
-			Role _role = roleRepository.save(role);
-			
-			 return new ResponseEntity<>(_role, HttpStatus.CREATED);
-
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-   
-	// Update data
-	
-	public ResponseEntity<Role> update(Long id, Role role) {
-		try {
-			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
-			if(roleData.isPresent()) {
-				Role _role = roleData.get();
-				_role.setName(role.getName());
-				return new ResponseEntity<>(roleRepository.save(_role), HttpStatus.OK);
-			}else {
-				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}			
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	public ResponseEntity<String> delete(Long id) {
-		try {
-			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
-			if(roleData.isPresent()) {
-				Role _role = roleData.get();
-				_role.setDelete_flag(1);
-				return new ResponseEntity<>("Delete user action success ", HttpStatus.OK);
-			}else {
-				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}			
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+//	public ResponseEntity<Role> create(Role role) {
+//		try {
+//			role.setDelete_flag(0);
+//			Role _role = roleRepository.save(role);
+//			
+//			 return new ResponseEntity<>(_role, HttpStatus.CREATED);
+//
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
+//   
+//	// Update data
+//	
+//	public ResponseEntity<Role> update(Long id, Role role) {
+//		try {
+//			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
+//			if(roleData.isPresent()) {
+//				Role _role = roleData.get();
+//				_role.setName(role.getName());
+//				return new ResponseEntity<>(roleRepository.save(_role), HttpStatus.OK);
+//			}else {
+//				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//			}			
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
+//	
+//	public ResponseEntity<String> delete(Long id) {
+//		try {
+//			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
+//			if(roleData.isPresent()) {
+//				Role _role = roleData.get();
+//				_role.setDelete_flag(1);
+//				return new ResponseEntity<>("Delete user action success ", HttpStatus.OK);
+//			}else {
+//				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//			}			
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 	
 }

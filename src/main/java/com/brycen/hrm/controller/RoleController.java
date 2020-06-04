@@ -40,22 +40,22 @@ public class RoleController {
 	}
 	
 	
-	// Insert for database
-	@PostMapping("/role/create")
-	public ResponseEntity<Role> create(@RequestBody Role role) {
-		return this.roleService.create(role);
-	}
-	
-	// Update
-	@PutMapping("/role/update/{id}")
-	public ResponseEntity<Role> update(@PathVariable("id") long id, @RequestBody Role role) {
-		return this.roleService.update(id, role);
-	}
-	
-	// Delete
-	@DeleteMapping("/role/delete/{id}")
-	public ResponseEntity<String> delete(@PathVariable("id") long id) {
-		return this.roleService.delete(id);
-	}
-	
+//	// Insert for database
+//	@PostMapping("/role/create")
+//	public ResponseEntity<Role> create(@RequestBody Role role) {
+//		return this.roleService.create(role);
+//	}
+//	
+//	// Update
+//	@PutMapping("/role/update/{id}")
+//	public ResponseEntity<Role> update(@PathVariable("id") long id, @RequestBody Role role) {
+//		return this.roleService.update(id, role);
+//	}
+//	
+//	// Delete
+//	@DeleteMapping("/role/delete/{id}")
+//	public ResponseEntity<String> delete(@PathVariable("id") long id) {
+//		return this.roleService.delete(id);
+//	}
+//	
 }

@@ -20,71 +20,137 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "user")
 public class User {
-	
+
+	/*
+	 * Name variable:id
+	 * type: Long
+	 * Key primary of table user
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 	
+	/*
+	 * Name variable:userName
+	 * type: String
+	 *  Account of user
+	 */
 	@Column(name = "username")
-	private String username;
+	private String userName;
 	
+	/*
+	 * Name variable: password
+	 * type: String
+	 * Password of user
+	 */
 	@Column(name = "password")
-	private String password;
+	private String passWord;
 	
-	@Column(name = "delete_flag")
-	private int delete_flag ;
+	/*
+	 * Name variable: password
+	 * type: String
+	 * Password of user
+	 * Flag delete of use
+	 * deleteFlag = 0 -> user exist
+	 * deleteFlag = 1 -> user was remove
+	 */
+	@Column(name = "deleteFlag")
+	private int deleteFlag ;
 	
+	// Relationship reference join 2 table User-UserRole
 	@JsonBackReference(value = "user-userRole")
 	@OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles;
 	
+	/*
+	 * Name function: getId
+	 * Parameter:
+	 * 
+	 */
 	public Long getId() {
 		return id;
 	}
-
+	
+	/*
+	 * Name function: setId
+	 * Parameter:id : Long
+	 * 
+	 */ 
 	public void setId(Long id) {
 		this.id = id;
 	}
 	
-	public String getUsername() {
-		return username;
+	/*
+	 * Name function: getUserName
+	 * Parameter:
+	 * 
+	 */
+	public String getUserName() {
+		return userName;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	
+	/*
+	 * Name function: setUserName
+	 * Parameter:userName: String
+	 * 
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-
-	public String getPassword() {
-		return password;
+	
+	/*
+	 * Name function: getPassWord
+	 * Parameter:
+	 * 
+	 */
+	public String getPassWord() {
+		return passWord;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	
+	/*
+	 * Name function: setPassWord
+	 * Parameter:passWord : String
+	 * 
+	 */
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
-
-	public int getDelete_flag() {
-		return delete_flag;
+	
+	/*
+	 * Name function: getDeleteFlag
+	 * Parameter
+	 * 
+	 */
+	public int getDeleteFlag() {
+		return deleteFlag;
 	}
-
-	public void setDelete_flag(int delete_flag) {
-		this.delete_flag = delete_flag;
+	
+	/*
+	 * Name function: setDeleteFlag
+	 * Parameter: deleteFlag: int
+	 * 
+	 */
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
-
+	
+	/*
+	 * Name function: getUserRoles
+	 * Parameter
+	 * 
+	 */
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
 	}
-
+	
+	/*
+	 * Name function: setUserRoles
+	 * Parameter: userRoles: Set<UserRole>
+	 * 
+	 */
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
-
-//	public Profile getProfile() {
-//		return profile;
-//	}
-//
-//	public void setProfile(Profile profile) {
-//		this.profile = profile;
-//	}
-	
+		
 }

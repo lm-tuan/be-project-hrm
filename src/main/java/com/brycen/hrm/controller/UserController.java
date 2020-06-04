@@ -33,11 +33,11 @@ public class UserController {
 		return this.userService.getAll();
 	}
 	
-//	// Get by id
-//	@GetMapping("/employee/{id}")
-//	public ResponseEntity<Profile> getById(@PathVariable("id") long id){
-//		return this.userService.getById(id);
-//	}
+	// Get by id
+	@GetMapping("/user/{id}")
+	public ResponseEntity<User> getById(@PathVariable("id") long id){
+		return this.userService.getById(id);
+	}
 //	
 //	
 //	// Insert for database

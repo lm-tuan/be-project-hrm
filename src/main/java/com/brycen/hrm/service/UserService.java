@@ -35,20 +35,20 @@ public class UserService {
 	}
 	
 	// Get by Id
-//	public ResponseEntity<User> getById(Long id) {
-//		try {
-//			 Optional<User> userData = userRepositoty.findByIdAndFlag(id);
-//			if(userData.isPresent()) {
-//				return new ResponseEntity<>(userData.get(), HttpStatus.OK);
-//			}else {
-//			      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		    }
-//
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-//	
+	public ResponseEntity<User> getById(Long id) {
+		try {
+			 Optional<User> userData = userRepositoty.findByIdAndFlag(id);
+			if(userData.isPresent()) {
+				return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+			}else {
+			      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		    }
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 //	// Insert data
 //	public ResponseEntity<User> create(User user) {
 //		try {

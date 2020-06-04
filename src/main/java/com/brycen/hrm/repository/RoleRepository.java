@@ -10,9 +10,9 @@ import com.brycen.hrm.model.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 	
-	@Query("select r from Role r where r.delete_flag = 0")
+	@Query("select r from Role r where r.deleteFlag = 0")
 	public List<Role> findAllByFlag();
 	
-	@Query("select r from Role r where r.delete_flag = 0 and r.id=?1")
+	@Query("select r from Role r where r.deleteFlag = 0 and r.id=?1")
 	public Optional<Role> findByIdAndFlag(Long id);
 }
