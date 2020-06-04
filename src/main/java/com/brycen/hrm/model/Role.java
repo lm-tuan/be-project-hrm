@@ -3,10 +3,13 @@ package com.brycen.hrm.model;
 import java.util.Set;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "role")
+@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Role {
 	/*
 	 * Name variable:id
@@ -38,7 +41,6 @@ public class Role {
 	private int deleteFlag ;
 	
 	// Relationship reference join 2 table Role-UserRole
-	@JsonBackReference(value = "role-user")
 	@OneToMany (mappedBy = "role", fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles;
 

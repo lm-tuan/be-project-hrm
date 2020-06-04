@@ -1,12 +1,14 @@
 package com.brycen.hrm.model;
 import javax.persistence.*;
 
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "user_role")
+@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserRole {
 	
 	/*
@@ -36,13 +38,11 @@ public class UserRole {
 	private long roleId;
 	
 	// Relationship reference join 2 table User-UserRole
-	@JsonManagedReference(value = "user-userRole")
 	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private User user;
 	
 	// Relationship reference join 2 table Role-UserRole
-	@JsonManagedReference(value = "role-user")
 	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name = "roleId", referencedColumnName = "id")
 	private Role role;

@@ -16,9 +16,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "user")
+@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
 	/*
@@ -59,7 +62,6 @@ public class User {
 	private int deleteFlag ;
 	
 	// Relationship reference join 2 table User-UserRole
-	@JsonBackReference(value = "user-userRole")
 	@OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<UserRole> userRoles;
 	
