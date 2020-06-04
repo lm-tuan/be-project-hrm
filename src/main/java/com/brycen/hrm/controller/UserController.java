@@ -38,24 +38,24 @@ public class UserController {
 	public ResponseEntity<User> getById(@PathVariable("id") long id){
 		return this.userService.getById(id);
 	}
-//	
-//	
-//	// Insert for database
-//	@PostMapping("/employee/create")
-//	public ResponseEntity<Profile> create(@RequestBody Profile employee) {
-//		return this.employeeService.create(employee);
-//	}
-//	
-//	// Update
-//	@PutMapping("/role/employee/{id}")
-//	public ResponseEntity<Profile> update(@PathVariable("id") long id, @RequestBody Profile employee) {
-//		return this.employeeService.update(id, employee);
-//	}
-//	
-//	// Delete
-//	@DeleteMapping("/employee/delete/{id}")
-//	public ResponseEntity<String> delete(@PathVariable("id") long id) {
-//		return this.employeeService.delete(id);
-//	}
+	
+	
+	// Insert for database
+	@PostMapping("/user/create")
+	public ResponseEntity<User> create(@RequestBody User user) {
+		return this.userService.create(user);
+	}
+	
+	// Update
+	@PutMapping("/user/update/{id}")
+	public ResponseEntity<User> update(@PathVariable("id") long id, @RequestBody User user) {
+		return this.userService.update(id, user);
+	}
+	
+	// Delete
+	@DeleteMapping("/user/delete/{id}")
+	public ResponseEntity<String> delete(@PathVariable("id") long id) {
+		return this.userService.delete(id);
+	}
 	
 }
