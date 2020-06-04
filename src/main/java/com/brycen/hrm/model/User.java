@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -33,11 +35,9 @@ public class User {
 	@Column(name = "delete_flag")
 	private int delete_flag ;
 	
+	@JsonBackReference(value = "user-userRole")
 	@OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
-	private Set<UserRole> user_roles;
-	
-//	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	private Profile profile;
+	private Set<UserRole> userRoles;
 	
 	public Long getId() {
 		return id;
@@ -46,7 +46,7 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -71,12 +71,12 @@ public class User {
 		this.delete_flag = delete_flag;
 	}
 
-	public Set<UserRole> getUser_roles() {
-		return user_roles;
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
 	}
 
-	public void setUser_roles(Set<UserRole> user_roles) {
-		this.user_roles = user_roles;
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
 	}
 
 //	public Profile getProfile() {

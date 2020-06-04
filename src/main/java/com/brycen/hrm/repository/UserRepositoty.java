@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-import com.brycen.hrm.model.Profile;
+import com.brycen.hrm.model.User;
 
 
-public interface UserRepositoty extends JpaRepository<Profile, Long> {
+public interface UserRepositoty extends JpaRepository<User, Long> {
 	
 	@Query("select e from User e where e.delete_flag = 0")
-	public List<Profile> findAllByFlag();
+	public List<User> findAllByFlag();
 	
-	@Query("select e from Role e where e.delete_flag = 0 and e.id=?1")
-	public Optional<Profile> findByIdAndFlag(Long id);
+	@Query("select e from User e where e.delete_flag = 0 and e.id=?1")
+	public Optional<User> findByIdAndFlag(Long id);
 }

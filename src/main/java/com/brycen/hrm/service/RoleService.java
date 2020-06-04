@@ -23,7 +23,7 @@ public class RoleService {
 	public ResponseEntity<List<Role>> getAll() {
 		try {
 			List<Role> roles = new ArrayList<Role>();
-			roles = roleRepository.findAllByFlag();
+			roles = roleRepository.findAll();
 			return new ResponseEntity<>(roles, HttpStatus.OK);
 
 		} catch (Exception e) {

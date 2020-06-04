@@ -1,9 +1,9 @@
 package com.brycen.hrm.model;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "role")
@@ -20,10 +20,19 @@ public class Role {
 	private int delete_flag ;
 	
 	
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	private UserRole user_role;
+	@JsonBackReference(value = "role-user")
+	@OneToMany (mappedBy = "role", fetch = FetchType.EAGER)
+	private Set<UserRole> userRoles;
+
+
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
 
 
 	public Long getId() {
@@ -53,16 +62,6 @@ public class Role {
 
 	public void setDelete_flag(int delete_flag) {
 		this.delete_flag = delete_flag;
-	}
-
-
-	public UserRole getUser_roles() {
-		return user_role;
-	}
-
-
-	public void setUser_roles(UserRole user_role) {
-		this.user_role = user_role;
 	}
 
 }

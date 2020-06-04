@@ -1,6 +1,10 @@
 package com.brycen.hrm.model;
 import javax.persistence.*;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "user_role")
 public class UserRole {
@@ -10,18 +14,21 @@ public class UserRole {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "user_id", updatable = false, insertable = false)
-	private long user_id;
+	@Column(name = "userId", updatable = false, insertable = false)
+	private long userId;
 
-	@Column(name = "role_id", updatable = false, insertable = false)
-	private long role_id;
+	@Column(name = "roleId", updatable = false, insertable = false)
+	private long roleId;
 	
-	@OneToOne(mappedBy = "user_role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Role role;
-
+	@JsonManagedReference(value = "user-userRole")
 	@ManyToOne (fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private User user;
+	
+	@JsonManagedReference(value = "role-user")
+	@ManyToOne (fetch = FetchType.EAGER)
+	@JoinColumn(name = "roleId", referencedColumnName = "id")
+	private Role role;
 
 	public User getUser() {
 		return user;
@@ -39,20 +46,20 @@ public class UserRole {
 		this.id = id;
 	}
 
-	public long getUser_id() {
-		return user_id;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
-	public long getRole_id() {
-		return role_id;
+	public long getRoleId() {
+		return roleId;
 	}
 
-	public void setRole_id(long role_id) {
-		this.role_id = role_id;
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
 	}
 
 	public Role getRole() {
@@ -62,8 +69,5 @@ public class UserRole {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-	
-	
 	
 }
