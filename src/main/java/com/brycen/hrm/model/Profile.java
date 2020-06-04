@@ -10,121 +10,232 @@ import javax.persistence.*;
 @Entity
 @Table(name = "profile")
 public class Profile {
-	
+	/*
+	 * Name variable:id
+	 * type: Long
+	 * Key primary of table role
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	/*
+	 * Name variable:fullName
+	 * type: String
+	 * 
+	 */
+	@Column(name = "fullName")
+	private String fullName;
 	
-	@Column(name = "full_name")
-	private String full_name;
+	/*
+	 * Name variable:idCard
+	 * type: int
+	 */
+	@Column(name = "idCard")
+	private int idCard;
 	
-	@Column(name = "id_card")
-	private int id_card;
-	
+	/*
+	 * Name variable:birthday
+	 * type: Date
+	 */
 	@Column(name = "birthday")
 	private Date birthday;
 	
+	/*
+	 * Name variable:gender
+	 * type: int
+	 */
 	@Column(name = "gender")
-	private boolean gender;
+	private int gender;
 	
+	/*
+	 * Name variable:phone
+	 * type: String
+	 */
 	@Column(name = "phone")
 	private String phone;
 	
+	/*
+	 * Name variable:email
+	 * type: String
+	 */
 	@Column(name = "email")
 	private String email;
 	
+	/*
+	 * Name variable:position
+	 * type: Long
+	 */
 	@Column(name = "position")
 	private String position;
 	
-	@Column(name = "delete_flag")
-	private int delete_flag ;
+	/*
+	 * Name variable:deleteFlag
+	 * type: int
+	 */
+	@Column(name = "deleteFlag")
+	private int deleteFlag ;
 	
-//	@OneToOne(mappedBy = "profile")
-//    private User user;
-
+	/*
+	 * Name function: getId
+	 * Parameter
+	 * 
+	 */
 	public Long getId() {
 		return id;
 	}
-
+	
+	/*
+	 * Name function: setId
+	 * Parameter id : Long
+	 * 
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getFull_name() {
-		return full_name;
+	
+	/*
+	 * Name function: getFullName
+	 * Parameter
+	 * 
+	 */
+	public String getFullName() {
+		return fullName;
 	}
-
-	public void setFull_name(String full_name) {
-		this.full_name = full_name;
+	
+	/*
+	 * Name function: setFullName
+	 * Parameter fullName: String
+	 * 
+	 */
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-
-	public int getId_card() {
-		return id_card;
+	
+	/*
+	 * Name function: getIdCard
+	 * Parameter
+	 * 
+	 */
+	public int getIdCard() {
+		return idCard;
 	}
-
-	public void setId_card(int id_card) {
-		this.id_card = id_card;
+	
+	/*
+	 * Name function: setIdCard
+	 * Parameter setIdCard : int
+	 * 
+	 */
+	public void setIdCard(int setIdCard) {
+		this.idCard = idCard;
 	}
-
+	
+	/*
+	 * Name function: getBirthday
+	 * Parameter
+	 * 
+	 */
 	public Date getBirthday() {
 		return birthday;
 	}
-
+	
+	/*
+	 * Name function: setBirthday
+	 * Parameter birthday: Date
+	 * 
+	 */
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-
-	public boolean isGender() {
+	
+	/*
+	 * Name function: getGender
+	 * Parameter
+	 * 
+	 */
+	public int getGender() {
 		return gender;
 	}
-
-	public void setGender(boolean gender) {
+	
+	/*
+	 * Name function: setGender
+	 * Parameter gender: int
+	 * 
+	 */
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
-
+	
+	/*
+	 * Name function: getPhone
+	 * Parameter 
+	 * 
+	 */
 	public String getPhone() {
 		return phone;
 	}
-
+	
+	/*
+	 * Name function: setPhone
+	 * Parameter phone String
+	 * 
+	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
+	
+	/*
+	 * Name function: getEmail
+	 * Parameter
+	 * 
+	 */
 	public String getEmail() {
 		return email;
 	}
-
+	
+	/*
+	 * Name function: setEmail
+	 * Parameter email : String
+	 * 
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
+	/*
+	 * Name function: getPosition
+	 * Parameter
+	 * 
+	 */
 	public String getPosition() {
 		return position;
 	}
-
+	
+	/*
+	 * Name function: setPosition
+	 * Parameter position: String
+	 * 
+	 */
 	public void setPosition(String position) {
 		this.position = position;
 	}
-
-	public int getDelete_flag() {
-		return delete_flag;
+	
+	/*
+	 * Name function: getDeleteFlag
+	 * Parameter
+	 * 
+	 */
+	public int getDeleteFlag() {
+		return deleteFlag;
 	}
-
-	public void setDelete_flag(int delete_flag) {
-		this.delete_flag = delete_flag;
+	
+	/*
+	 * Name function: setDeleteFlag
+	 * Parameter deleteFlag: int
+	 * 
+	 */
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
-
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-
-	
-
-	
-	
+		
 }
