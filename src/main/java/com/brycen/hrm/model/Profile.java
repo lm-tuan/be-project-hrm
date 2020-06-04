@@ -1,11 +1,9 @@
 package com.brycen.hrm.model;
 
 import java.sql.Date;
-
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "profile")
@@ -76,6 +74,20 @@ public class Profile {
 	@Column(name = "deleteFlag")
 	private int deleteFlag ;
 	
+	// Mapping with User
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	private User user;
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	/*
 	 * Name function: getId
 	 * Parameter
@@ -126,7 +138,7 @@ public class Profile {
 	 * Parameter setIdCard : int
 	 * 
 	 */
-	public void setIdCard(int setIdCard) {
+	public void setIdCard(int idCard) {
 		this.idCard = idCard;
 	}
 	
