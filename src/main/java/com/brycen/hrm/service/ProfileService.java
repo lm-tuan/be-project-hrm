@@ -58,44 +58,51 @@ public class ProfileService {
 		}
 	}
    
-//	// Update data
-//	public ResponseEntity<User> update(Long id, User user) {
-//		try {
-//			// Get user by id
-//			Optional<User> userData = userRepositoty.findByIdAndFlag(id);
-//			// Check user exist
-//			if(userData.isPresent()) {
-//				User u = userData.get();
-//				u.setDeleteFlag(0);
-//				u.setUserName(user.getUserName());
-//				u.setPassWord(user.getPassWord());
-//				return new ResponseEntity<>(userRepositoty.save(u), HttpStatus.OK);
-//			}else {
-//				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//			}			
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+	// Update data
+	public ResponseEntity<Profile> update(Long id, Profile profile) {
+		try {
+			// Get user by id
+			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
+			// Check user exist
+			if(profileData.isPresent()) {
+				Profile p = profileData.get();
+				// Update field
+				p.setBirthday(profile.getBirthday());
+				p.setDeleteFlag(profile.getDeleteFlag());
+				p.setEmail(profile.getEmail());
+				p.setFullName(profile.getFullName());
+				p.setGender(profile.getGender());
+				p.setIdCard(profile.getIdCard());
+				p.setPhone(profile.getPhone());
+				p.setPosition(profile.getPosition());
+				profileRepository.save(p);
+				return new ResponseEntity<>(p, HttpStatus.OK);
+			}else {
+				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
-//	// Delete
-//	public ResponseEntity<String> delete(Long id) {
-//		try {
-//			Optional<User> userData = userRepositoty.findByIdAndFlag(id);
-//			if(userData.isPresent()) {
-//				User u = userData.get();
-//				u.setDeleteFlag(1);
-//				try {
-//					userRepositoty.save(u);
-//					return new ResponseEntity<>("Delete employee action success ", HttpStatus.OK);
-//				} catch (Exception e) {
-//					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//				}	
-//			}else {
-//				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//			}			
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+	// Delete
+	public ResponseEntity<String> delete(Long id) {
+		try {
+			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
+			if(profileData.isPresent()) {
+				Profile p = profileData.get();
+				p.setDeleteFlag(1);
+				try {
+					profileRepository.save(p);
+					return new ResponseEntity<>("Delete profile of user action success ", HttpStatus.OK);
+				} catch (Exception e) {
+					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+				}	
+			}else {
+				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

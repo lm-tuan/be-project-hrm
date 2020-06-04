@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.brycen.hrm.model.Profile;
 import com.brycen.hrm.service.ProfileService;
-import com.brycen.hrm.service.UserService;
+
 
 @RestController
 @CrossOrigin
@@ -45,15 +45,15 @@ public class ProfileController {
 		return this.profileService.create(profile);
 	}
 	
-//	// Update
-//	@PutMapping("/profile/update/{id}")
-//	public ResponseEntity<User> update(@PathVariable("id") long id, @RequestBody User user) {
-//		return this.profileService.update(id, user);
-//	}
-//	
-//	// Delete
-//	@DeleteMapping("/profile/delete/{id}")
-//	public ResponseEntity<String> delete(@PathVariable("id") long id) {
-//		return this.profileService.delete(id);
-//	}
+	// Update
+	@PutMapping("/profile/update/{id}")
+	public ResponseEntity<Profile> update(@PathVariable("id") long id, @RequestBody Profile profile) {
+		return this.profileService.update(id, profile);
+	}
+	
+	// Delete
+	@DeleteMapping("/profile/delete/{id}")
+	public ResponseEntity<String> delete(@PathVariable("id") long id) {
+		return this.profileService.delete(id);
+	}
 }
