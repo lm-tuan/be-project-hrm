@@ -1,6 +1,7 @@
 package com.brycen.hrm.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.brycen.hrm.model.Profile;
+import com.brycen.hrm.model.ResDeleteProfile;
 import com.brycen.hrm.repository.ProfileRepository;
 
 @Service
@@ -86,15 +88,15 @@ public class ProfileService {
 	}
 	
 	// Delete
-	public ResponseEntity<String> delete(Long id) {
+	public ResponseEntity<ResDeleteProfile> delete(Long id) {
 		try {
-			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
+ 			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
 			if(profileData.isPresent()) {
 				Profile p = profileData.get();
 				p.setDeleteFlag(1);
 				try {
 					profileRepository.save(p);
-					return new ResponseEntity<>("Delete profile of user action success ", HttpStatus.OK);
+					return new ResponseEntity<>(new ResDeleteProfile(), HttpStatus.OK);
 				} catch (Exception e) {
 					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 				}	
