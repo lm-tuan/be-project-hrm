@@ -37,7 +37,7 @@ public class UserService {
 	// Get by Id
 	public ResponseEntity<User> getById(Long id) {
 		try {
-			 Optional<User> userData = userRepositoty.findByIdAndFlag(id);
+			 Optional<User> userData = userRepositoty.findById(id);
 			if(userData.isPresent()) {
 				return new ResponseEntity<>(userData.get(), HttpStatus.OK);
 			}else {
@@ -52,7 +52,7 @@ public class UserService {
 	// Insert data
 	public ResponseEntity<User> create(User user) {
 		try {
-			user.setDeleteFlag(0);
+			// user.setDeleteFlag(0);
 			User _user = userRepositoty.save(user);
 			
 			 return new ResponseEntity<>(_user, HttpStatus.CREATED);
@@ -66,13 +66,13 @@ public class UserService {
 	public ResponseEntity<User> update(Long id, User user) {
 		try {
 			// Get user by id
-			Optional<User> userData = userRepositoty.findByIdAndFlag(id);
+			Optional<User> userData = userRepositoty.findById(id);
 			// Check user exist
 			if(userData.isPresent()) {
 				User u = userData.get();
-				u.setDeleteFlag(0);
-				u.setUserName(user.getUserName());
-				u.setPassWord(user.getPassWord());
+//				u.setDeleteFlag(0);
+//				u.setUserName(user.getUserName());
+//				u.setPassWord(user.getPassWord());
 				return new ResponseEntity<>(userRepositoty.save(u), HttpStatus.OK);
 			}else {
 				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -85,10 +85,10 @@ public class UserService {
 	// Delete
 	public ResponseEntity<String> delete(Long id) {
 		try {
-			Optional<User> userData = userRepositoty.findByIdAndFlag(id);
+			Optional<User> userData = userRepositoty.findById(id);
 			if(userData.isPresent()) {
 				User u = userData.get();
-				u.setDeleteFlag(1);
+				// u.setDeleteFlag(1);
 				try {
 					userRepositoty.save(u);
 					return new ResponseEntity<>("Delete employee action success ", HttpStatus.OK);

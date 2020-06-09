@@ -1,119 +1,46 @@
 package com.brycen.hrm.model;
 
-import java.util.Set;
-import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "role")
-@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Role {
-	/*
-	 * Name variable:id
-	 * type: Long
-	 * Key primary of table role
-	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-	
-	/*
-	 * Name variable:name
-	 * type: String
-	 * Name of role
-	 */
-	@Column(name = "name")
-	private String name;
-	
-	/*
-	 * Name variable: password
-	 * type: String
-	 * Password of user
-	 * Flag delete of use
-	 * deleteFlag = 0 -> user exist
-	 * deleteFlag = 1 -> user was remove
-	 */
-	@Column(name = "deleteFlag")
-	private int deleteFlag ;
-	
-	// Relationship reference join 2 table Role-UserRole
-	@OneToMany (mappedBy = "role", fetch = FetchType.EAGER)
-	private Set<UserRole> userRoles;
+	private Integer id;
 
-	/*
-	 * Name function: getId
-	 * Parameter
-	 * 
-	 */
-	public Long getId() {
-		return id;
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+	private ERole name;
+
+	public Role() {
+
 	}
 
-	/*
-	 * Name function: setId
-	 * Parameter: id : Long
-	 * 
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/*
-	 * Name function: getName
-	 * Parameter
-	 * 
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/*
-	 * Name function: setName
-	 * Parameter: name : String
-	 * 
-	 */
-	public void setName(String name) {
+	public Role(ERole name) {
 		this.name = name;
 	}
 
-	/*
-	 * Name function: getDeleteFlag
-	 * Parameter: 
-	 * 
-	 */
-	public int getDeleteFlag() {
-		return deleteFlag;
+	public Integer getId() {
+		return id;
 	}
 
-	/*
-	 * Name function: setDeleteFlag
-	 * Parameter: deleteFlag : int
-	 * 
-	 */
-	public void setDeleteFlag(int deleteFlag) {
-		this.deleteFlag = deleteFlag;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	/*
-	 * Name function: getUserRoles
-	 * Parameter
-	 * 
-	 */
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
+	public ERole getName() {
+		return name;
 	}
 
-	/*
-	 * Name function: setUserRoles
-	 * Parameter: userRoles : Set<UserRole>
-	 * 
-	 */
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
+	public void setName(ERole name) {
+		this.name = name;
 	}
-
 }

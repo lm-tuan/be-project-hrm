@@ -24,7 +24,7 @@ public class ProfileService {
 	public ResponseEntity<List<Profile>> getAll() {
 		try {
 			List<Profile> profile = new ArrayList<Profile>();
-			profile = profileRepository.findAllByFlag();
+			profile = profileRepository.findAll();
 			return new ResponseEntity<>(profile, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -35,7 +35,7 @@ public class ProfileService {
 	// Get by Id
 	public ResponseEntity<Profile> getById(Long id) {
 		try {
-			 Optional<Profile>profileData = profileRepository.findByIdAndFlag(id);
+			 Optional<Profile>profileData = profileRepository.findById(id);
 			if(profileData.isPresent()) {
 				return new ResponseEntity<>(profileData.get(), HttpStatus.OK);
 			}else {
@@ -64,7 +64,7 @@ public class ProfileService {
 	public ResponseEntity<Profile> update(Long id, Profile profile) {
 		try {
 			// Get user by id
-			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
+			Optional<Profile> profileData = profileRepository.findById(id);
 			// Check user exist
 			if(profileData.isPresent()) {
 				Profile p = profileData.get();
@@ -90,7 +90,7 @@ public class ProfileService {
 	// Delete
 	public ResponseEntity<ResDeleteProfile> delete(Long id) {
 		try {
- 			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
+ 			Optional<Profile> profileData = profileRepository.findById(id);
 			if(profileData.isPresent()) {
 				Profile p = profileData.get();
 				p.setDeleteFlag(1);

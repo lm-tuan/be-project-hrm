@@ -1,6 +1,8 @@
 package com.brycen.hrm.model;
 
 import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,8 +17,8 @@ public class Profile {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+	@Column(name = "profile_id")
+	private Long profile_id;
 	/*
 	 * Name variable:fullName
 	 * type: String
@@ -75,179 +77,102 @@ public class Profile {
 	private int deleteFlag ;
 	
 	// Mapping with User
-	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "user_id")
 	private User user;
 	
-	public User getUser() {
-		return user;
+	// Relationship reference join 2 table Skill-UserSkill
+	@OneToMany (mappedBy = "profile", fetch = FetchType.EAGER)
+	private List<ProfileSkill> profileSkill;
+
+	public Long getProfile_id() {
+		return profile_id;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setProfile_id(Long profile_id) {
+		this.profile_id = profile_id;
 	}
 
-	/*
-	 * Name function: getId
-	 * Parameter
-	 * 
-	 */
-	public Long getId() {
-		return id;
-	}
-	
-	/*
-	 * Name function: setId
-	 * Parameter id : Long
-	 * 
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	/*
-	 * Name function: getFullName
-	 * Parameter
-	 * 
-	 */
 	public String getFullName() {
 		return fullName;
 	}
-	
-	/*
-	 * Name function: setFullName
-	 * Parameter fullName: String
-	 * 
-	 */
+
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	
-	/*
-	 * Name function: getIdCard
-	 * Parameter
-	 * 
-	 */
+
 	public int getIdCard() {
 		return idCard;
 	}
-	
-	/*
-	 * Name function: setIdCard
-	 * Parameter setIdCard : int
-	 * 
-	 */
+
 	public void setIdCard(int idCard) {
 		this.idCard = idCard;
 	}
-	
-	/*
-	 * Name function: getBirthday
-	 * Parameter
-	 * 
-	 */
+
 	public Date getBirthday() {
 		return birthday;
 	}
-	
-	/*
-	 * Name function: setBirthday
-	 * Parameter birthday: Date
-	 * 
-	 */
+
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	
-	/*
-	 * Name function: getGender
-	 * Parameter
-	 * 
-	 */
+
 	public int getGender() {
 		return gender;
 	}
-	
-	/*
-	 * Name function: setGender
-	 * Parameter gender: int
-	 * 
-	 */
+
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-	
-	/*
-	 * Name function: getPhone
-	 * Parameter 
-	 * 
-	 */
+
 	public String getPhone() {
 		return phone;
 	}
-	
-	/*
-	 * Name function: setPhone
-	 * Parameter phone String
-	 * 
-	 */
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	/*
-	 * Name function: getEmail
-	 * Parameter
-	 * 
-	 */
+
 	public String getEmail() {
 		return email;
 	}
-	
-	/*
-	 * Name function: setEmail
-	 * Parameter email : String
-	 * 
-	 */
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	/*
-	 * Name function: getPosition
-	 * Parameter
-	 * 
-	 */
+
 	public String getPosition() {
 		return position;
 	}
-	
-	/*
-	 * Name function: setPosition
-	 * Parameter position: String
-	 * 
-	 */
+
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	
-	/*
-	 * Name function: getDeleteFlag
-	 * Parameter
-	 * 
-	 */
+
 	public int getDeleteFlag() {
 		return deleteFlag;
 	}
-	
-	/*
-	 * Name function: setDeleteFlag
-	 * Parameter deleteFlag: int
-	 * 
-	 */
+
 	public void setDeleteFlag(int deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
+
+	public List<ProfileSkill> getProfileSkill() {
+		return profileSkill;
+	}
+
+	public void setProfileSkill(List<ProfileSkill> profileSkill) {
+		this.profileSkill = profileSkill;
+	}
+	
+	
 		
 }

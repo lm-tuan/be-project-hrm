@@ -13,9 +13,9 @@ import com.brycen.hrm.model.Profile;
 
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 	
-	@Query("select p from Profile p where p.deleteFlag = 0")
-	public List<Profile> findAllByFlag();
-	
-	@Query("select p from Profile p where p.deleteFlag = 0 and p.id=?1")
-	public Optional<Profile> findByIdAndFlag(Long id);
+//	@Query("select p from Profile p where p.deleteFlag = 0")
+//	public List<Profile> findAllByFlag();
+//	
+//	@Query("select p from Profile p where p.deleteFlag = 0 and p.profile_id=?1")
+//	public Optional<Profile> findByIdAndFlag(Long id);
 }

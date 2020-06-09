@@ -1,167 +1,81 @@
 package com.brycen.hrm.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "user")
-@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(	name = "user", 
+		uniqueConstraints = { 
+			@UniqueConstraint(columnNames = "username"),
+			@UniqueConstraint(columnNames = "email") 
+		})
 public class User {
-
-	/*
-	 * Name variable:id
-	 * type: Long
-	 * Key primary of table user
-	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-	
-	/*
-	 * Name variable:userName
-	 * type: String
-	 *  Account of user
-	 */
-	@Column(name = "username")
-	private String userName;
-	
-	/*
-	 * Name variable: password
-	 * type: String
-	 * Password of user
-	 */
-	@Column(name = "password")
-	private String passWord;
-	
-	/*
-	 * Name variable: password
-	 * type: String
-	 * Password of user
-	 * Flag delete of use
-	 * deleteFlag = 0 -> user exist
-	 * deleteFlag = 1 -> user was remove
-	 */
-	@Column(name = "deleteFlag")
-	private int deleteFlag ;
-	
-	// Relationship reference join 2 table User-UserRole
-	@OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
-	private Set<UserRole> userRoles;
-	
-	
-	// Relationship reference join 2 table User-Profile
-	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Profile profile;
-	public Profile getProfile() {
-		return profile;
+	private Long user_id;
+
+	private String username;
+
+	private String email;
+
+	private String password;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_role", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+
+	public User() {
 	}
 
-	public void setProfile(Profile profile) {
-		this.profile = profile;
+	public User(String username, String email, String password) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
+	
+
+	public Long getUser_id() {
+		return user_id;
 	}
 
-	/*
-	 * Name function: getId
-	 * Parameter:
-	 * 
-	 */
-	public Long getId() {
-		return id;
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
 	}
-	
-	/*
-	 * Name function: setId
-	 * Parameter:id : Long
-	 * 
-	 */ 
-	public void setId(Long id) {
-		this.id = id;
+
+	public String getUsername() {
+		return username;
 	}
-	
-	/*
-	 * Name function: getUserName
-	 * Parameter:
-	 * 
-	 */
-	public String getUserName() {
-		return userName;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	
-	/*
-	 * Name function: setUserName
-	 * Parameter:userName: String
-	 * 
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public String getEmail() {
+		return email;
 	}
-	
-	/*
-	 * Name function: getPassWord
-	 * Parameter:
-	 * 
-	 */
-	public String getPassWord() {
-		return passWord;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	/*
-	 * Name function: setPassWord
-	 * Parameter:passWord : String
-	 * 
-	 */
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+
+	public String getPassword() {
+		return password;
 	}
-	
-	/*
-	 * Name function: getDeleteFlag
-	 * Parameter
-	 * 
-	 */
-	public int getDeleteFlag() {
-		return deleteFlag;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
-	/*
-	 * Name function: setDeleteFlag
-	 * Parameter: deleteFlag: int
-	 * 
-	 */
-	public void setDeleteFlag(int deleteFlag) {
-		this.deleteFlag = deleteFlag;
+
+	public Set<Role> getRoles() {
+		return roles;
 	}
-	
-	/*
-	 * Name function: getUserRoles
-	 * Parameter
-	 * 
-	 */
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-	
-	/*
-	 * Name function: setUserRoles
-	 * Parameter: userRoles: Set<UserRole>
-	 * 
-	 */
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-		
 }

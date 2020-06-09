@@ -34,7 +34,7 @@ public class RoleService {
 	// Get by Id
 	public ResponseEntity<Role> getById(Long id) {
 		try {
-			 Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
+			 Optional<Role> roleData = roleRepository.findById(id);
 			if(roleData.isPresent()) {
 				return new ResponseEntity<>(roleData.get(), HttpStatus.OK);
 			}else {
@@ -49,7 +49,7 @@ public class RoleService {
 	// Insert data
 	public ResponseEntity<Role> create(Role role) {
 		try {
-			role.setDeleteFlag(0);
+			// role.setDeleteFlag(0);
 			Role r = roleRepository.save(role);
 			
 			 return new ResponseEntity<>(r, HttpStatus.CREATED);
@@ -64,7 +64,7 @@ public class RoleService {
 	
 	public ResponseEntity<Role> update(Long id, Role role) {
 		try {
-			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
+			Optional<Role> roleData = roleRepository.findById(id);
 			if(roleData.isPresent()) {
 				Role r = roleData.get();
 				r.setName(role.getName());
@@ -79,10 +79,10 @@ public class RoleService {
 	
 	public ResponseEntity<String> delete(Long id) {
 		try {
-			Optional<Role> roleData = roleRepository.findByIdAndFlag(id);
+			Optional<Role> roleData = roleRepository.findById(id);
 			if(roleData.isPresent()) {
 				Role r = roleData.get();
-				r.setDeleteFlag(1);
+				// r.setDeleteFlag(1);
 				return new ResponseEntity<>("Delete user action success ", HttpStatus.OK);
 			}else {
 				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
