@@ -88,7 +88,7 @@ public class SkillService {
 			Optional<Skill> skillData = skillRepository.findByIdAndFlag(id);
 			if(skillData.isPresent()) {
 				Skill s = skillData.get();
-				s.setDelete_flag(DeleteFlag.NO.getNumVal());
+				s.setDelete_flag(DeleteFlag.YES.getNumVal());
 				try {
 					skillRepository.save(s);
 					return new ResponseEntity<>(new ResDelete(), HttpStatus.OK);

@@ -1,8 +1,7 @@
 package com.brycen.hrm.service;
 
 import java.util.ArrayList;
-
-
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.brycen.hrm.common.DeleteFlag;
 import com.brycen.hrm.model.Profile;
 import com.brycen.hrm.model.Role;
 import com.brycen.hrm.model.User;
@@ -53,7 +53,7 @@ public class UserService {
 	// Insert data
 	public ResponseEntity<User> create(User user) {
 		try {
-			// user.setDeleteFlag(0);
+			user.setDelete_flag(DeleteFlag.NO.getNumVal());
 			User _user = userRepositoty.save(user);
 			
 			 return new ResponseEntity<>(_user, HttpStatus.CREATED);
@@ -71,9 +71,11 @@ public class UserService {
 			// Check user exist
 			if(userData.isPresent()) {
 				User u = userData.get();
-//				u.setDeleteFlag(0);
-//				u.setUserName(user.getUserName());
-//				u.setPassWord(user.getPassWord());
+				u.setDelete_flag(DeleteFlag.NO.getNumVal());
+				u.setPassword(user.getPassword());
+				u.setUsername(user.getUsername());
+				u.setEmail(user.getEmail());
+				u.setUpdate_date(new Date());
 				return new ResponseEntity<>(userRepositoty.save(u), HttpStatus.OK);
 			}else {
 				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -89,7 +91,7 @@ public class UserService {
 			Optional<User> userData = userRepositoty.findById(id);
 			if(userData.isPresent()) {
 				User u = userData.get();
-				// u.setDeleteFlag(1);
+				u.setDelete_flag(DeleteFlag.YES.getNumVal());
 				try {
 					userRepositoty.save(u);
 					return new ResponseEntity<>(new ResDelete(), HttpStatus.OK);
