@@ -1,8 +1,7 @@
 package com.brycen.hrm.service;
 
 import java.util.ArrayList;
-
-
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,24 +10,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.brycen.hrm.model.Profile;
-import com.brycen.hrm.model.Role;
+import com.brycen.hrm.common.DeleteFlag;
+import com.brycen.hrm.model.Skill;
 import com.brycen.hrm.model.User;
 import com.brycen.hrm.model.response.ResDelete;
+import com.brycen.hrm.repository.SkillRepository;
 import com.brycen.hrm.repository.UserRepositoty;
 
 
 @Service
-public class UserService {
+public class SkillService {
 	@Autowired
-	UserRepositoty userRepositoty;
+	SkillRepository skillRepository;
 	
 	// Get all
-	public ResponseEntity<List<User>> getAll() {
+	public ResponseEntity<List<Skill>> getAll() {
 		try {
-			List<User> users = new ArrayList<User>();
-			users = userRepositoty.findAll();
-			return new ResponseEntity<>(users, HttpStatus.OK);
+			List<Skill> skills = new ArrayList<Skill>();
+			skills = skillRepository.findAllByFlag();
+			return new ResponseEntity<>(skills, HttpStatus.OK);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,11 +36,11 @@ public class UserService {
 	}
 	
 	// Get by Id
-	public ResponseEntity<User> getById(Long id) {
+	public ResponseEntity<Skill> getById(Long id) {
 		try {
-			 Optional<User> userData = userRepositoty.findById(id);
-			if(userData.isPresent()) {
-				return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+			 Optional<Skill> skillData = skillRepository.findByIdAndFlag(id);
+			if(skillData.isPresent()) {
+				return new ResponseEntity<>(skillData.get(), HttpStatus.OK);
 			}else {
 			      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		    }
@@ -51,12 +51,12 @@ public class UserService {
 	}
 	
 	// Insert data
-	public ResponseEntity<User> create(User user) {
+	public ResponseEntity<Skill> create(Skill skill) {
 		try {
 			// user.setDeleteFlag(0);
-			User _user = userRepositoty.save(user);
+			Skill _skill = skillRepository.save(skill);
 			
-			 return new ResponseEntity<>(_user, HttpStatus.CREATED);
+			 return new ResponseEntity<>(_skill, HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -64,17 +64,16 @@ public class UserService {
 	}
    
 	// Update data
-	public ResponseEntity<User> update(Long id, User user) {
+	public ResponseEntity<Skill> update(Long id, Skill skill) {
 		try {
 			// Get user by id
-			Optional<User> userData = userRepositoty.findById(id);
+			Optional<Skill> skillData = skillRepository.findByIdAndFlag(id);
 			// Check user exist
-			if(userData.isPresent()) {
-				User u = userData.get();
-//				u.setDeleteFlag(0);
-//				u.setUserName(user.getUserName());
-//				u.setPassWord(user.getPassWord());
-				return new ResponseEntity<>(userRepositoty.save(u), HttpStatus.OK);
+			if(skillData.isPresent()) {
+				Skill s = skillData.get();
+				s.setDelete_flag(DeleteFlag.NO.getNumVal());
+				s.setName(skill.getName());
+				return new ResponseEntity<>(skillRepository.save(s), HttpStatus.OK);
 			}else {
 				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}			
@@ -86,12 +85,12 @@ public class UserService {
 	// Delete
 	public ResponseEntity<ResDelete> delete(Long id) {
 		try {
-			Optional<User> userData = userRepositoty.findById(id);
-			if(userData.isPresent()) {
-				User u = userData.get();
-				// u.setDeleteFlag(1);
+			Optional<Skill> skillData = skillRepository.findByIdAndFlag(id);
+			if(skillData.isPresent()) {
+				Skill s = skillData.get();
+				s.setDelete_flag(DeleteFlag.NO.getNumVal());
 				try {
-					userRepositoty.save(u);
+					skillRepository.save(s);
 					return new ResponseEntity<>(new ResDelete(), HttpStatus.OK);
 				} catch (Exception e) {
 					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

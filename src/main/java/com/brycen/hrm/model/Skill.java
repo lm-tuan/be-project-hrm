@@ -38,7 +38,7 @@ public class Skill {
 	 * Name of role
 	 */
 	@Column(name = "name")
-	private String description;
+	private String name;
 	
 	
 	/*
@@ -49,8 +49,8 @@ public class Skill {
 	 * deleteFlag = 0 -> user exist
 	 * deleteFlag = 1 -> user was remove
 	 */
-	@Column(name = "deleteFlag")
-	private int deleteFlag ;
+	@Column(name = "delete_flag")
+	private int delete_flag ;
 	
 // Relationship reference join 2 table Skill-UserSkill
 	@OneToMany (mappedBy = "skill", fetch = FetchType.EAGER)
@@ -114,21 +114,25 @@ public class Skill {
 		this.skill_id = skill_id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getName() {
+		return name;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public int getDeleteFlag() {
-		return deleteFlag;
+	public int getDelete_flag() {
+		return delete_flag;
 	}
 
-	public void setDeleteFlag(int deleteFlag) {
-		this.deleteFlag = deleteFlag;
+	public void setDelete_flag(int delete_flag) {
+		this.delete_flag = delete_flag;
 	}
+
+
+
+	
 	
 
 //	public List<ProfileSkill> getProfileSkill() {

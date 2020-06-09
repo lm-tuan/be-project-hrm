@@ -2,7 +2,6 @@ package com.brycen.hrm.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,48 +14,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.brycen.hrm.model.Skill;
 import com.brycen.hrm.model.User;
 import com.brycen.hrm.model.response.ResDelete;
+import com.brycen.hrm.service.SkillService;
 import com.brycen.hrm.service.UserService;
-
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-public class UserController {
+public class SkillController {
 	
 	@Autowired
-	UserService userService;
+	SkillService skillService;
 	
 	// Get all data
-	@GetMapping("/user")
-	public ResponseEntity<List<User>> getAll() {
-		return this.userService.getAll();
+	@GetMapping("/skill")
+	public ResponseEntity<List<Skill>> getAll() {
+		return this.skillService.getAll();
 	}
 	
 	// Get by id
-	@GetMapping("/user/{id}")
-	public ResponseEntity<User> getById(@PathVariable("id") long id){
-		return this.userService.getById(id);
+	@GetMapping("/skill/{id}")
+	public ResponseEntity<Skill> getById(@PathVariable("id") long id){
+		return this.skillService.getById(id);
 	}
 	
 	
 	// Insert for database
-	@PostMapping("/user/create")
-	public ResponseEntity<User> create(@RequestBody User user) {
-		return this.userService.create(user);
+	@PostMapping("/skill/create")
+	public ResponseEntity<Skill> create(@RequestBody Skill skill) {
+		return this.skillService.create(skill);
 	}
 	
 	// Update
-	@PutMapping("/user/update/{id}")
-	public ResponseEntity<User> update(@PathVariable("id") long id, @RequestBody User user) {
-		return this.userService.update(id, user);
+	@PutMapping("/skill/update/{id}")
+	public ResponseEntity<Skill> update(@PathVariable("id") long id, @RequestBody Skill skill) {
+		return this.skillService.update(id, skill);
 	}
 	
 	// Delete
-	@DeleteMapping("/user/delete/{id}")
+	@DeleteMapping("/skill/delete/{id}")
 	public ResponseEntity<ResDelete> delete(@PathVariable("id") long id) {
-		return this.userService.delete(id);
+		return this.skillService.delete(id);
 	}
-	
 }

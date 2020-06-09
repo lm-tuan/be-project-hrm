@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brycen.hrm.model.Profile;
-import com.brycen.hrm.model.response.ReqDeleteProfile;
+import com.brycen.hrm.model.response.ResDelete;
 import com.brycen.hrm.service.ProfileService;
 
 
@@ -55,7 +55,7 @@ public class ProfileController {
 	
 	// Delete
 	@DeleteMapping("/profile/delete/{id}")
-	public ResponseEntity<ReqDeleteProfile> delete(@PathVariable("id") long id) {
+	public ResponseEntity<ResDelete> delete(@PathVariable("id") long id) {
 		return this.profileService.delete(id);
 	}
 }

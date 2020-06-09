@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.brycen.hrm.common.DeleteFlag;
 import com.brycen.hrm.model.Profile;
 import com.brycen.hrm.model.response.*;
-import com.brycen.hrm.model.response.ReqDeleteProfile;
 import com.brycen.hrm.repository.ProfileRepository;
 
 @Service
@@ -93,7 +92,7 @@ public class ProfileService {
 	}
 	
 	// Delete
-	public ResponseEntity<ReqDeleteProfile> delete(Long id) {
+	public ResponseEntity<ResDelete> delete(Long id) {
 		try {
  			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
 			if(profileData.isPresent()) {
@@ -101,7 +100,7 @@ public class ProfileService {
 				p.setDelete_flag(DeleteFlag.NO.getNumVal());
 				try {
 					profileRepository.save(p);
-					return new ResponseEntity<>(new ReqDeleteProfile(), HttpStatus.OK);
+					return new ResponseEntity<>(new ResDelete(), HttpStatus.OK);
 				} catch (Exception e) {
 					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 				}	
