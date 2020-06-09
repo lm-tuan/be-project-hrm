@@ -15,13 +15,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 public class BaseModel {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-	
 	@Column(name = "delete_flag")
-	private boolean delete_flag ;
+	private int delete_flag ;
 	
 	@CreationTimestamp
 	@Column(name = "create_date")
@@ -41,19 +36,11 @@ public class BaseModel {
 	//@LastModifiedBy
 	private String update_by ;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public boolean isDelete_flag() {
+	public int getDelete_flag() {
 		return delete_flag;
 	}
 
-	public void setDelete_flag(boolean delete_flag) {
+	public void setDelete_flag(int delete_flag) {
 		this.delete_flag = delete_flag;
 	}
 

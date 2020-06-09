@@ -2,6 +2,7 @@ package com.brycen.hrm.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brycen.hrm.model.Profile;
-import com.brycen.hrm.model.ResDeleteProfile;
+import com.brycen.hrm.model.response.ReqDeleteProfile;
 import com.brycen.hrm.service.ProfileService;
 
 
@@ -54,7 +55,7 @@ public class ProfileController {
 	
 	// Delete
 	@DeleteMapping("/profile/delete/{id}")
-	public ResponseEntity<ResDeleteProfile> delete(@PathVariable("id") long id) {
+	public ResponseEntity<ReqDeleteProfile> delete(@PathVariable("id") long id) {
 		return this.profileService.delete(id);
 	}
 }

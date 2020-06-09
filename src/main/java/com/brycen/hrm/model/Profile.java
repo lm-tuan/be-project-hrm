@@ -1,15 +1,20 @@
 package com.brycen.hrm.model;
 
 import java.sql.Date;
+
 import java.util.List;
 
 import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
 
 @Entity
 @Table(name = "profile")
-public class Profile {
+public class Profile extends BaseModel {
 	/*
 	 * Name variable:id
 	 * type: Long
@@ -69,18 +74,73 @@ public class Profile {
 	@Column(name = "position")
 	private String position;
 	
-	/*
-	 * Name variable:deleteFlag
-	 * type: int
-	 */
-	@Column(name = "deleteFlag")
-	private int deleteFlag ;
+	@Column(name = "delete_flag")
+	private int delete_flag ;
+	
+	@CreationTimestamp
+	@Column(name = "create_date")
+	@CreatedDate
+	private Date create_date ;
+	
+	@UpdateTimestamp
+	@Column(name = "update_date")
+	// @LastModifiedDate
+	private Date update_date ;
+	
+	@Column(name = "create_by")
+	@CreatedBy
+	private String create_by ;
+	
+	@Column(name = "update_by")
+	//@LastModifiedBy
+	private String update_by ;
+
 	
 	// Mapping with User
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	public int getDelete_flag() {
+		return delete_flag;
+	}
+
+	public void setDelete_flag(int delete_flag) {
+		this.delete_flag = delete_flag;
+	}
+
+	public Date getCreate_date() {
+		return create_date;
+	}
+
+	public void setCreate_date(Date create_date) {
+		this.create_date = create_date;
+	}
+
+	public Date getUpdate_date() {
+		return update_date;
+	}
+
+	public void setUpdate_date(Date update_date) {
+		this.update_date = update_date;
+	}
+
+	public String getCreate_by() {
+		return create_by;
+	}
+
+	public void setCreate_by(String create_by) {
+		this.create_by = create_by;
+	}
+
+	public String getUpdate_by() {
+		return update_by;
+	}
+
+	public void setUpdate_by(String update_by) {
+		this.update_by = update_by;
+	}
+
 	// Relationship reference join 2 table Skill-UserSkill
 	@OneToMany (mappedBy = "profile", fetch = FetchType.EAGER)
 	private List<ProfileSkill> profileSkill;
@@ -147,14 +207,6 @@ public class Profile {
 
 	public void setPosition(String position) {
 		this.position = position;
-	}
-
-	public int getDeleteFlag() {
-		return deleteFlag;
-	}
-
-	public void setDeleteFlag(int deleteFlag) {
-		this.deleteFlag = deleteFlag;
 	}
 
 //	public User getUser() {
