@@ -10,6 +10,9 @@ import com.brycen.hrm.model.User;
 
 
 public interface UserRepositoty extends JpaRepository<User, Long> {
+	Optional<User> findByUsername(String username);
+	Boolean existsByUsername(String username);
+	Boolean existsByEmail(String email);
 	
 	@Query("select e from User e where e.delete_flag = 0")
 	public List<User> findAllByFlag();
