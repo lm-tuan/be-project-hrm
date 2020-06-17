@@ -77,7 +77,7 @@ public class ProfileService {
 	                sqlQuery.append(" AND ");
 	            sqlQuery.append("p.department_id =" + departmentId);
 	        }
-	        
+	        sqlQuery.append(" AND delete_flag = 0 ");
 	        System.out.println("SQL---------------------------------" + sqlQuery.toString());
 	        Query q = em.createNativeQuery(sqlQuery.toString(), Profile.class);
 	        List<Profile> profiles = q.getResultList();
