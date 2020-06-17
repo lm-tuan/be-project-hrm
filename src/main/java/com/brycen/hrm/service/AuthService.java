@@ -67,12 +67,15 @@ public class AuthService {
 	}
 	
 	public ResponseEntity<?> sigup(@Valid @RequestBody SignupRequest signUpRequest) {
+		
+		// Check userName exist.
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
-
+		
+		// Check Email exist.
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()

@@ -1,16 +1,21 @@
 package com.brycen.hrm.service;
 
 import java.text.SimpleDateFormat;
+
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.brycen.hrm.common.DeleteFlag;
 import com.brycen.hrm.model.Profile;
@@ -22,7 +27,8 @@ public class ProfileService {
 	
 	@Autowired
 	ProfileRepository profileRepository;
-	
+	@Autowired
+    private EntityManager em;
 	// Get all
 	public ResponseEntity<List<Profile>> getAll() {
 		try {
@@ -34,7 +40,43 @@ public class ProfileService {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+	// Filter all
+		public ResponseEntity<List<Profile>> filterAll(String fullname, Long skillId,Long departmentId)
+		{
+		    System.out.println("toang roi");
+			boolean flag = false;
+	        StringBuilder sqlQuery = new StringBuilder();
+	        sqlQuery.append("SELECT * FROM profile p " + System.lineSeparator());
+	        if (skillId != 0) {
+	            sqlQuery.append("LEFT JOIN profile_skill ps " + System.lineSeparator());
+	            sqlQuery.append("ON p.profile_id = ps.profile_id " + System.lineSeparator());
+	        }
+	        System.out.println(fullname);
+	        if (!fullname.equals("") || skillId != 0 || departmentId != 0)
+	            sqlQuery.append("WHERE ");
+	        if (!fullname.equals("")) {
+	            sqlQuery.append("p.full_name like '%" + fullname + "' " + System.lineSeparator());
+	            flag = true;
+	        }
+	        if (skillId != 0) {
+	            if (flag)
+	                sqlQuery.append(" AND ");
+	            sqlQuery.append("ps.skill_id =" + skillId + System.lineSeparator());
+	            flag = true;
+	        }
+//	        if (departmentId != 0) {
+//	            if (flag)
+//	                sqlQuery.append(" AND ");
+//	            sqlQuery.append("e.department_id =" + departmentId);
+//	        }
+	        
+	        System.out.println("SQL---------------------------------" + sqlQuery.toString());
+	        Query q = em.createNativeQuery(sqlQuery.toString(), Profile.class);
+	        List<Profile> profiles = q.getResultList();
+	        return new ResponseEntity<>(profiles, HttpStatus.OK);
+
+			
+		}
 	// Get by Id
 	public ResponseEntity<Profile> getById(Long id) {
 		try {
@@ -81,6 +123,8 @@ public class ProfileService {
 				p.setPhone(profile.getPhone());
 				p.setPosition(profile.getPosition());
 				p.setUpdate_date(new Date());
+				p.setAddress(profile.getAddress());
+				p.setStart_date(profile.getStart_date());
 				profileRepository.save(p);
 				return new ResponseEntity<>(p, HttpStatus.OK);
 			}else {
@@ -97,7 +141,7 @@ public class ProfileService {
  			Optional<Profile> profileData = profileRepository.findByIdAndFlag(id);
 			if(profileData.isPresent()) {
 				Profile p = profileData.get();
-				p.setDelete_flag(DeleteFlag.NO.getNumVal());
+				p.setDelete_flag(DeleteFlag.YES.getNumVal());
 				try {
 					profileRepository.save(p);
 					return new ResponseEntity<>(new ResDelete(), HttpStatus.OK);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brycen.hrm.model.Profile;
@@ -32,6 +33,13 @@ public class ProfileController {
 	@GetMapping("/profile")
 	public ResponseEntity<List<Profile>> getAll() {
 		return this.profileService.getAll();
+	}
+	// Get all data
+	@GetMapping("/profile/filter")
+	public ResponseEntity<List<Profile>> filterAll(@RequestParam(required = false, defaultValue ="") String fullname, 
+			@RequestParam(required = false, defaultValue = "0") Long skillId,
+            @RequestParam(required = false, defaultValue = "0") Long departmentId) {
+		return this.profileService.filterAll(fullname, skillId,departmentId );
 	}
 	
 	// Get by id

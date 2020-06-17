@@ -47,6 +47,13 @@ public class Profile extends BaseModel {
 	private Date birthday;
 	
 	/*
+	 * Name variable:birthday
+	 * type: Date
+	 */
+	@Column(name = "start_date")
+	private Date start_date;
+	
+	/*
 	 * Name variable:gender
 	 * type: int
 	 */
@@ -59,6 +66,13 @@ public class Profile extends BaseModel {
 	 */
 	@Column(name = "phone")
 	private String phone;
+	
+	/*
+	 * Name variable:address
+	 * type: String
+	 */
+	@Column(name = "address")
+	private String address;
 	
 	/*
 	 * Name variable:email
@@ -223,6 +237,22 @@ public class Profile extends BaseModel {
 
 	public void setProfileSkill(List<ProfileSkill> profileSkill) {
 		this.profileSkill = profileSkill;
+	}
+
+	public Date getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	
