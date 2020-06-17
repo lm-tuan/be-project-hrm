@@ -61,7 +61,7 @@ public class ProfileService {
 	        }
 	        // Search by fullname if fullname have exists
 	        if (!fullname.equals("")) {
-	            sqlQuery.append("p.full_name like '%" + fullname + "' " + System.lineSeparator());
+	            sqlQuery.append("p.full_name like '%" + fullname + "%' " + System.lineSeparator());
 	            flag = true;
 	        }
 	        // Search by skillId if skillId have exists
