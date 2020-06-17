@@ -43,7 +43,6 @@ public class ProfileService {
 	// Filter all
 		public ResponseEntity<List<Profile>> filterAll(String fullname, Long skillId,Long departmentId)
 		{
-		    System.out.println("toang roi");
 		    // Create flags use check all field
 			boolean flag = false;
 			
@@ -72,11 +71,12 @@ public class ProfileService {
 	            sqlQuery.append("ps.skill_id =" + skillId + System.lineSeparator());
 	            flag = true;
 	        }
-//	        if (departmentId != 0) {
-//	            if (flag)
-//	                sqlQuery.append(" AND ");
-//	            sqlQuery.append("e.department_id =" + departmentId);
-//	        }
+	        
+	        if (departmentId != 0) {
+	            if (flag)
+	                sqlQuery.append(" AND ");
+	            sqlQuery.append("p.department_id =" + departmentId);
+	        }
 	        
 	        System.out.println("SQL---------------------------------" + sqlQuery.toString());
 	        Query q = em.createNativeQuery(sqlQuery.toString(), Profile.class);
