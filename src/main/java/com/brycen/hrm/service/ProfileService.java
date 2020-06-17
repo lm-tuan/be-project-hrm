@@ -44,20 +44,28 @@ public class ProfileService {
 		public ResponseEntity<List<Profile>> filterAll(String fullname, Long skillId,Long departmentId)
 		{
 		    System.out.println("toang roi");
+		    // Create flags use check all field
 			boolean flag = false;
+			
 	        StringBuilder sqlQuery = new StringBuilder();
+	        // Append query Table Profile
 	        sqlQuery.append("SELECT * FROM profile p " + System.lineSeparator());
+	        // Check skillId if a exists then append for append and join with Profile_Skill
 	        if (skillId != 0) {
 	            sqlQuery.append("LEFT JOIN profile_skill ps " + System.lineSeparator());
 	            sqlQuery.append("ON p.profile_id = ps.profile_id " + System.lineSeparator());
 	        }
-	        System.out.println(fullname);
-	        if (!fullname.equals("") || skillId != 0 || departmentId != 0)
-	            sqlQuery.append("WHERE ");
+	        
+	        // Check skillId, fullname ,departmentId have exists if occur in one of the cases then continue query by condition
+	        if (!fullname.equals("") || skillId != 0 || departmentId != 0) {
+	        	sqlQuery.append("WHERE ");
+	        }
+	        // Search by fullname if fullname have exists
 	        if (!fullname.equals("")) {
 	            sqlQuery.append("p.full_name like '%" + fullname + "' " + System.lineSeparator());
 	            flag = true;
 	        }
+	        // Search by skillId if skillId have exists
 	        if (skillId != 0) {
 	            if (flag)
 	                sqlQuery.append(" AND ");
