@@ -115,6 +115,24 @@ public class Profile extends BaseModel {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	// Relationship reference join 2 table Skill-UserSkill
+	@OneToMany (mappedBy = "profile", fetch = FetchType.EAGER)
+	private List<ProfileSkill> profileSkill;
+	
+	// Relationship reference join 2 table Skill-UserSkill
+	@ManyToOne 
+    @JoinColumn(name = "department_id")
+	private Department department;
+	
+	
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	public int getDelete_flag() {
 		return delete_flag;
 	}
@@ -154,10 +172,6 @@ public class Profile extends BaseModel {
 	public void setUpdate_by(String update_by) {
 		this.update_by = update_by;
 	}
-
-	// Relationship reference join 2 table Skill-UserSkill
-	@OneToMany (mappedBy = "profile", fetch = FetchType.EAGER)
-	private List<ProfileSkill> profileSkill;
 
 	public Long getProfile_id() {
 		return profile_id;
