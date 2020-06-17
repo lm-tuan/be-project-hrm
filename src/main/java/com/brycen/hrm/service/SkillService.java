@@ -62,6 +62,18 @@ public class SkillService {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	// Insert data
+	public ResponseEntity<List<Skill>> saveAll(List<Skill> skills) {
+		try {
+			// user.setDeleteFlag(0);
+			List<Skill> _skills = skillRepository.saveAll(skills);
+			 return new ResponseEntity<>(_skills, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
    
 	// Update data
 	public ResponseEntity<Skill> update(Long id, Skill skill) {

@@ -42,18 +42,21 @@ public class ProfileSkillService {
 	
 	
 	// Insert data
-	public ResponseEntity<ProfileSkill> create(ReqProfleSkill reqProfleSkill) {
+	public ResponseEntity<List<ProfileSkill>> create(ReqProfleSkill reqProfleSkill) {
 		try {
-			// user.setDeleteFlag(0);
-			 Optional<Skill> _skill = skillRepository.findById(reqProfleSkill.skill_id);		
-			 Optional<LevelSkill> _levelSkill = levelSkillRepository.findById(reqProfleSkill.level_id);
-			 Optional<Profile> _profile = profileRepository.findById(reqProfleSkill.profile_id);
-			 
-			 ProfileSkill ps = new ProfileSkill();
-			 ps.setSkill(_skill.get());
-			 ps.setLevel(_levelSkill.get());
-			 ps.setProfile(_profile.get());
-			 return new ResponseEntity<>(profileSkillRepository.save(ps), HttpStatus.CREATED);
+			// Foreach skill
+			List<ProfileSkill> listPs = new ArrayList<ProfileSkill>();
+			Optional<Profile> _profile = profileRepository.findById(reqProfleSkill.profile_id);
+			List<Skill> _skills = skillRepository.findAllById(reqProfleSkill.skill_ids);
+			List<LevelSkill> _levelSkills = levelSkillRepository.findAllById(reqProfleSkill.level_ids);
+			for(int i = 0; i < reqProfleSkill.skill_ids.size();i++  ) {
+				ProfileSkill ps = new ProfileSkill();
+				ps.setSkill(_skills.get(i));
+				ps.setLevel(_levelSkills.get(i));
+				ps.setProfile(_profile.get());
+				listPs.add(ps);
+			}
+			 return new ResponseEntity<>(profileSkillRepository.saveAll(listPs), HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,24 +64,26 @@ public class ProfileSkillService {
 	}
    
 	
-	// Update data
-	public ResponseEntity<ProfileSkill> update(Long id, ReqProfleSkill reqProfleSkill) {
+//	// Update data
+	public ResponseEntity<List<ProfileSkill>> update(List<Long> ids, ReqProfleSkill reqProfleSkill) {
 		try {
 			// Get Profile_skill by id
-			 Optional<ProfileSkill> _profileSkill = profileSkillRepository.findById(id);	
+			List<ProfileSkill> _profileSkills = profileSkillRepository.findAllById(ids);	
 			 
-			 if(_profileSkill.isPresent()) {
-				 Optional<Skill> _skill = skillRepository.findById(reqProfleSkill.skill_id);		
-				 Optional<LevelSkill> _levelSkill = levelSkillRepository.findById(reqProfleSkill.level_id);
-				 Optional<Profile> _profile = profileRepository.findById(reqProfleSkill.profile_id);
+			 if(_profileSkills.size() != 0) {
 				 
-				 ProfileSkill ps = _profileSkill.get();
-				 
-				 ps.setSkill(_skill.get());
-				 ps.setLevel(_levelSkill.get());
-				 ps.setProfile(_profile.get());	
-				 
-				return new ResponseEntity<>(profileSkillRepository.save(ps), HttpStatus.OK);
+				List<ProfileSkill> listPs = new ArrayList<ProfileSkill>();
+			 	Optional<Profile> _profile = profileRepository.findById(reqProfleSkill.profile_id);
+				List<Skill> _skills = skillRepository.findAllById(reqProfleSkill.skill_ids);
+				List<LevelSkill> _levelSkills = levelSkillRepository.findAllById(reqProfleSkill.level_ids);
+					for(int i = 0; i < reqProfleSkill.skill_ids.size();i++ ) {
+						ProfileSkill ps = _profileSkills.get(i);
+						ps.setSkill(_skills.get(i));
+						ps.setLevel(_levelSkills.get(i));
+						ps.setProfile(_profile.get());
+						listPs.add(ps);
+					}
+					 return new ResponseEntity<>(profileSkillRepository.saveAll(listPs), HttpStatus.OK);			 
 				}else {
 					 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}	

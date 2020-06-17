@@ -47,6 +47,13 @@ public class SkillController {
 		return this.skillService.create(skill);
 	}
 	
+	// Insert many for database
+	@PostMapping("/skill/createAll")
+	public ResponseEntity<List<Skill>> createAll(@RequestBody List<Skill> skills) {
+		return this.skillService.saveAll(skills);
+	}
+		
+	
 	// Update
 	@PutMapping("/skill/update/{id}")
 	public ResponseEntity<Skill> update(@PathVariable("id") long id, @RequestBody Skill skill) {
