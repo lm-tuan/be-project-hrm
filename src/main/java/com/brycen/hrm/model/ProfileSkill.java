@@ -36,9 +36,9 @@ public class ProfileSkill {
 //		return profile;
 //	}
 //
-//	public void setProfile(Profile profile) {
-//		this.profile = profile;
-//	}
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
 
 	public Skill getSkill() {
 		return skill;

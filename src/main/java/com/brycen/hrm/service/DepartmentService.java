@@ -12,12 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.brycen.hrm.common.DeleteFlag;
 import com.brycen.hrm.model.Department;
-import com.brycen.hrm.model.Skill;
-import com.brycen.hrm.model.User;
 import com.brycen.hrm.model.response.ResDelete;
 import com.brycen.hrm.repository.DepartmentRepository;
-import com.brycen.hrm.repository.SkillRepository;
-import com.brycen.hrm.repository.UserRepositoty;
 
 
 @Service
