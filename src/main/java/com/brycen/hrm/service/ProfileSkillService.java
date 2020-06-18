@@ -45,17 +45,26 @@ public class ProfileSkillService {
 	public ResponseEntity<List<ProfileSkill>> create(ReqProfleSkill reqProfleSkill) {
 		try {
 			// Foreach skill
+			
+			// Create list ProfileSkill
 			List<ProfileSkill> listPs = new ArrayList<ProfileSkill>();
+			// Get profile by id
 			Optional<Profile> _profile = profileRepository.findById(reqProfleSkill.profile_id);
-			List<Skill> _skills = skillRepository.findAllById(reqProfleSkill.skill_ids);
-			List<LevelSkill> _levelSkills = levelSkillRepository.findAllById(reqProfleSkill.level_ids);
+			
+			//Create a ProfileSkill
+			ProfileSkill ps = new ProfileSkill();
 			for(int i = 0; i < reqProfleSkill.skill_ids.size();i++  ) {
-				ProfileSkill ps = new ProfileSkill();
-				ps.setSkill(_skills.get(i));
-				ps.setLevel(_levelSkills.get(i));
+				// Get skill by id
+				Optional<Skill> _skills = skillRepository.findById(reqProfleSkill.skill_ids.get(i));
+				Optional<LevelSkill> _levelSkills = levelSkillRepository.findById(reqProfleSkill.level_ids.get(i));
+				
+				ps.setSkill(_skills.get());
+				ps.setLevel(_levelSkills.get());
 				ps.setProfile(_profile.get());
 				listPs.add(ps);
 			}
+
+			// Save all List ProfileSkill
 			 return new ResponseEntity<>(profileSkillRepository.saveAll(listPs), HttpStatus.CREATED);
 
 		} catch (Exception e) {
@@ -70,16 +79,17 @@ public class ProfileSkillService {
 			// Get Profile_skill by id
 			List<ProfileSkill> _profileSkills = profileSkillRepository.findAllById(ids);	
 			 
-			 if(_profileSkills.size() != 0) {
-				 
+			 if(_profileSkills.size() != 0) {			 
 				List<ProfileSkill> listPs = new ArrayList<ProfileSkill>();
 			 	Optional<Profile> _profile = profileRepository.findById(reqProfleSkill.profile_id);
-				List<Skill> _skills = skillRepository.findAllById(reqProfleSkill.skill_ids);
-				List<LevelSkill> _levelSkills = levelSkillRepository.findAllById(reqProfleSkill.level_ids);
 					for(int i = 0; i < reqProfleSkill.skill_ids.size();i++ ) {
+						// Get skill by id
+						Optional<Skill> _skill = skillRepository.findById(reqProfleSkill.skill_ids.get(i));
+						Optional<LevelSkill> _levelSkill = levelSkillRepository.findById(reqProfleSkill.level_ids.get(i));
 						ProfileSkill ps = _profileSkills.get(i);
-						ps.setSkill(_skills.get(i));
-						ps.setLevel(_levelSkills.get(i));
+						
+						ps.setSkill(_skill.get());
+						ps.setLevel(_levelSkill.get());
 						ps.setProfile(_profile.get());
 						listPs.add(ps);
 					}
