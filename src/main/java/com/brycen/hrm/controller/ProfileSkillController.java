@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.brycen.hrm.model.ProfileSkill;
 import com.brycen.hrm.model.request.ReqProfleSkill;
+import com.brycen.hrm.model.response.ResDelete;
 import com.brycen.hrm.service.ProfileSkillService;
 
 
@@ -43,6 +45,12 @@ public class ProfileSkillController {
 	public ResponseEntity<List<ProfileSkill>> update(@RequestParam(required = true) List<Long> ids, @RequestBody ReqProfleSkill reqProfleSkill) {
 		return this.profileSkillService.update(ids, reqProfleSkill);
 	}
-//	
+	
+	// Delete
+	@DeleteMapping("/profile-skill/delete/{id}")
+	public ResponseEntity<ResDelete> delete(@PathVariable("id") long id) {
+		return this.profileSkillService.RemoveAll(id);
+	}
+	
 	
 }

@@ -1,6 +1,7 @@
 package com.brycen.hrm.service;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -104,5 +105,19 @@ public class ProfileSkillService {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	// Remove data by Id Profile
+		public ResponseEntity<ResDelete> RemoveAll(Long id) {
+			try {
+				 Optional<Profile> _profile = profileRepository.findById(id);
+				 if(_profile.isPresent()) {
+					 profileSkillRepository.RemoveAll(id);		
+					 return new ResponseEntity<>(new ResDelete(), HttpStatus.OK);		
+				 }	 
+				 return new ResponseEntity<>(HttpStatus.NOT_FOUND);		
+			} catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	
 }
