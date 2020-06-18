@@ -52,9 +52,10 @@ public class ProfileSkillService {
 			Optional<Profile> _profile = profileRepository.findById(reqProfleSkill.profile_id);
 			
 			//Create a ProfileSkill
-			ProfileSkill ps = new ProfileSkill();
 			for(int i = 0; i < reqProfleSkill.skill_ids.size();i++  ) {
+				
 				// Get skill by id
+				ProfileSkill ps = new ProfileSkill();
 				Optional<Skill> _skills = skillRepository.findById(reqProfleSkill.skill_ids.get(i));
 				Optional<LevelSkill> _levelSkills = levelSkillRepository.findById(reqProfleSkill.level_ids.get(i));
 				
@@ -62,8 +63,9 @@ public class ProfileSkillService {
 				ps.setLevel(_levelSkills.get());
 				ps.setProfile(_profile.get());
 				listPs.add(ps);
+				
 			}
-
+			
 			// Save all List ProfileSkill
 			 return new ResponseEntity<>(profileSkillRepository.saveAll(listPs), HttpStatus.CREATED);
 
