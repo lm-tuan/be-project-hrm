@@ -26,7 +26,12 @@ public class LevelSkill {
 	
 	@Column(name = "name")
 	private String name;
-
+	
+	@Column(name = "color")
+	private String color;
+	
+	@Column(name = "color_button")
+	private String color_button;
 	
 	@Column(name = "description")
 	private String description;
@@ -118,6 +123,26 @@ public class LevelSkill {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+	public String getColor() {
+		return color;
+	}
+
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	public String getColor_button() {
+		return color_button;
+	}
+
+
+	public void setColor_button(String color_button) {
+		this.color_button = color_button;
+	}
+
 	
 		
 }
