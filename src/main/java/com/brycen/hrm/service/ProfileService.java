@@ -164,4 +164,33 @@ public class ProfileService {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	// deleteAll
+		public ResponseEntity<ResDelete> deleteAll(List<Long> ids) {
+			int count = 0;
+			try {
+				for(int i = 0; i< ids.size(); i++) {
+		 			Optional<Profile> profileData = profileRepository.findByIdAndFlag(ids.get(i));
+		 			if(profileData.isPresent()) {
+						Profile p = profileData.get();
+						p.setDelete_flag(DeleteFlag.YES.getNumVal());
+						try {
+							profileRepository.save(p);
+							count++;
+						} catch (Exception e) {
+							return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+						}	
+					}else {
+						 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					}			
+				}
+				if(count == ids.size()) {
+					return new ResponseEntity<>(new ResDelete(), HttpStatus.OK);
+				}
+				
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			} catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 }

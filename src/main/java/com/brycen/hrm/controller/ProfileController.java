@@ -66,4 +66,10 @@ public class ProfileController {
 	public ResponseEntity<ResDelete> delete(@PathVariable("id") long id) {
 		return this.profileService.delete(id);
 	}
+	
+	// Delete
+	@PostMapping("/profile/delete-all")
+	public ResponseEntity<ResDelete> deleteAll(@RequestParam(required = true) List<Long> ids) {
+		return this.profileService.deleteAll(ids);
+	}
 }
